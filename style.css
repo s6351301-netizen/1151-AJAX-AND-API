@@ -33,3 +33,78 @@
     text-align: center;
     font-size:32px;
 }
+
+/* 事件列表卡片樣式 */
+#EventList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+#EventList li {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+#EventList li:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-4px);
+    transition: all 0.3s ease;
+}
+
+#EventList li .event-title {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 15px;
+    font-size: 1.3em;
+    font-weight: bold;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+#EventList li .event-summary {
+    padding: 15px;
+    color: #666;
+    font-size: 0.95em;
+    line-height: 1.6;
+    border-bottom: 1px solid #eee;
+    flex-grow: 1;
+}
+
+#EventList li .event-content {
+    padding: 15px;
+    color: #555;
+    font-size: 0.9em;
+    line-height: 1.5;
+    max-height: 100px;
+    overflow: hidden;
+    border-bottom: 1px solid #eee;
+    flex-grow: 1;
+}
+
+#EventList li .event-url {
+    padding: 15px;
+    background: #f8f9fa;
+}
+
+#EventList li .event-url a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.95em;
+    word-break: break-all;
+}
+
+#EventList li .event-url a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}

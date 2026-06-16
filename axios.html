@@ -8,12 +8,14 @@
     <link rel="shortcut icon" href="#" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
     <!-----引入axios函式庫------->
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.18.0/dist/axios.min.js"></script>
+    
 </head>
 <body>
     <h1 class="header">axios</h1>
     <div class="title"></div>
-    <h4></h4>
-    <ul></ul>
+    <h4>活動列表</h4>
+    <ul id="EventList"></ul>
     
 </body>
 </html>
@@ -32,5 +34,46 @@
 
 
 //建立錯誤處理
+
+axios.get('https://kktix.com/events.json')
+.then(function(response){
+    console.log(response.data)
+
+//處理回應
+buildEventList(response.data)
+    
+})
+.catch(function(err){
+//error
+
+})
+
+
+
+ function buildEventList(data){
+    let title=data.title
+        let titleContainer=document.querySelector(".title");
+        titleContainer.innerHTML=title;
+        let events=data.entry
+        let ul=document.querySelector('#EventList');
+        let event='';
+        for(let i=0;i<events.length/4;i++){
+            // 提取 summary 和 content，防止未定義的情況
+            let summary = events[i].summary || '暫無摘要';
+            let content = events[i].content || '暫無內容';
+            let url = events[i].url || '#';
+            
+            event=event+`<li>
+                           <div class="event-title">${events[i].title}</div>
+                           <div class="event-summary"><strong>摘要：</strong>${summary}</div>
+                           <div class="event-content"><strong>內容：</strong>${content}</div>
+                           <div class="event-url">
+                               <a href="${url}" target="_blank" title="查看更多">🔗 查看活動詳情</a>
+                           </div>
+                         </li>`
+        }
+        console.log(event)
+        ul.innerHTML=event
+ }
 
 </script>

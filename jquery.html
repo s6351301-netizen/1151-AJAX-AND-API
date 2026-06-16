@@ -8,12 +8,26 @@
     <link rel="shortcut icon" href="#" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
       <!-------引入jQuery函式庫------->
-</head>
+       <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <style>
+        li {
+    padding: 10px;
+    border: 1px solid green;
+    margin: 3px 10px;
+    border-radius: 20px;
+}
+
+li:hover {
+    background: lightblue;
+    color: red;
+}
+    </style>
+      </head>
 <body>
     <h1 class="header">jQuery</h1>
     <div class="title"></div>
-    <h4></h4>
-    <ul></ul>
+    <h4>活動列表</h4>
+    <ul id="EventList"></ul>
     
 </body>
 </html>
@@ -38,6 +52,34 @@
 
     
     //利用$.get()方法傳送請求並取得回應
-
+    $.get('https://kktix.com/events.json',(data)=>{
+      console.log(data)
+      buildEventList(data);
+    })
+ function buildEventList(data){
+    let title=data.title
+        let titleContainer=document.querySelector(".title");
+        titleContainer.innerHTML=title;
+        let events=data.entry
+        let ul=document.querySelector('#EventList');
+        let event='';
+        for(let i=0;i<events.length/4;i++){
+            // 提取 summary 和 content，防止未定義的情況
+            let summary = events[i].summary || '暫無摘要';
+            let content = events[i].content || '暫無內容';
+            let url = events[i].url || '#';
+            
+            event=event+`<li>
+                           <div class="event-title">${events[i].title}</div>
+                           <div class="event-summary"><strong>摘要：</strong>${summary}</div>
+                           <div class="event-content"><strong>內容：</strong>${content}</div>
+                           <div class="event-url">
+                               <a href="${url}" target="_blank" title="查看更多">🔗 查看活動詳情</a>
+                           </div>
+                         </li>`
+        }
+        console.log(event)
+        ul.innerHTML=event
+ }
 
   </script>
